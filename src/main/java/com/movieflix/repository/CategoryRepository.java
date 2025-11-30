@@ -1,4 +1,4 @@
-package com.movieflix.repostitory;
+package com.movieflix.repository;
 
 import com.movieflix.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
