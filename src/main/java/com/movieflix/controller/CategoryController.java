@@ -20,26 +20,31 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping()
-    public ResponseEntity<List<CategoryResponse>> listAll(){
-        return ResponseEntity.ok(categoryService.listAll().stream().map(CategoryMapper::toCategoryResponse).toList());
+    public ResponseEntity<List<CategoryResponse>> listAll() {
+        return ResponseEntity.ok(categoryService.listAll()
+                .stream()
+                .map(CategoryMapper::toCategoryResponse)
+                .toList());
     }
 
     @PostMapping()
-    public ResponseEntity<CategoryResponse> create(@RequestBody CategoryRequest categoryRequest){
+    public ResponseEntity<CategoryResponse> create(@RequestBody CategoryRequest categoryRequest) {
         Category category = CategoryMapper.toCategory(categoryRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(CategoryMapper.toCategoryResponse(categoryService.create(category)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(CategoryMapper
+                .toCategoryResponse(categoryService.create(category)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryResponse> findById(@PathVariable Long id){
+    public ResponseEntity<CategoryResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(CategoryMapper.toCategoryResponse(categoryService.findById(id)));
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id){
+    public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id) {
         categoryService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT).build();
 
     }
 

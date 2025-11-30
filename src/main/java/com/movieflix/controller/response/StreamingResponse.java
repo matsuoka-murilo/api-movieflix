@@ -1,4 +1,7 @@
 package com.movieflix.controller.response;
 
-public class StreamingResponse {
+import lombok.Builder;
+
+@Builder
+public record StreamingResponse (Long id, String name) {
 }
