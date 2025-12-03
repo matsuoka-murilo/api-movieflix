@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "movie")
-public class Movie {
+public class  Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
