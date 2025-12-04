@@ -20,15 +20,8 @@ public class MovieService {
     private final StreamingService streamingService;
 
     public Movie save(Movie movie) {
-        List<Category> categories = movie.getCategories()
-                .stream()
-                .map(category -> categoryService.findById(category.getId())).toList();
-        movie.setCategories(categories);
-
-        List<Streaming> streamings = movie.getStreamings()
-                .stream()
-                .map(streaming -> streamingService.getById(streaming.getId())).toList();
-        movie.setStreamings(streamings);
+        movie.setCategories( findCategories(movie.getCategories()));
+        movie.setStreamings(findStreaming(movie.getStreamings()));
 
         return movieRepository.save(movie);
     }
@@ -37,4 +30,31 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
+    public void delete(Long id) {
+        movieRepository.deleteById(id);
+    }
+
+    public Movie update(Movie movie, Long id) {
+        Movie entity = movieRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+        entity.setTitle(movie.getTitle());
+        entity.setDescription(movie.getDescription());
+        entity.setRating(movie.getRating());
+        entity.setCategories(findCategories(movie.getCategories()));
+        entity.setStreamings(findStreaming(movie.getStreamings()));
+        return movieRepository.save(entity);
+    }
+
+    private List<Category> findCategories(List<Category> category) {
+        List<Category> categories = new ArrayList<>();
+        category.forEach(c-> categories.add(categoryService.findById(c.getId())));
+        return categories;
+
+    }
+
+    private List<Streaming> findStreaming(List<Streaming> streamings) {
+        List<Streaming> streaming = new ArrayList<>();
+        streamings.forEach(s -> streaming.add(streamingService.getById(s.getId())));
+        return streaming;
+    }
 }
