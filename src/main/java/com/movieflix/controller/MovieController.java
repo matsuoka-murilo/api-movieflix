@@ -2,6 +2,7 @@ package com.movieflix.controller;
 
 import com.movieflix.controller.request.MovieRequest;
 import com.movieflix.controller.response.MovieResponse;
+import com.movieflix.entity.Category;
 import com.movieflix.entity.Movie;
 import com.movieflix.mapper.MovieMapper;
 import com.movieflix.service.MovieService;
@@ -29,6 +30,14 @@ public class MovieController {
     public ResponseEntity<List<MovieResponse>> findAll() {
         List<Movie> movies = movieService.getAll();
         return ResponseEntity.ok(movies.stream()
+                .map(MovieMapper::toMovieResponse)
+                .toList());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<MovieResponse>> findAllByCategory(@RequestParam Long category) {
+        return ResponseEntity.ok(movieService.findAllByCategory(category)
+                .stream()
                 .map(MovieMapper::toMovieResponse)
                 .toList());
     }

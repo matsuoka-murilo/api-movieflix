@@ -1,5 +1,6 @@
 package com.movieflix.service;
 
+import com.movieflix.controller.response.MovieResponse;
 import com.movieflix.entity.Category;
 import com.movieflix.entity.Movie;
 import com.movieflix.entity.Streaming;
@@ -56,5 +57,9 @@ public class MovieService {
         List<Streaming> streaming = new ArrayList<>();
         streamings.forEach(s -> streaming.add(streamingService.getById(s.getId())));
         return streaming;
+    }
+
+    public List<Movie> findAllByCategory(Long category) {
+    return movieRepository.findByCategories_Id(category);
     }
 }
