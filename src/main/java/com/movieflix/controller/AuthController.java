@@ -17,7 +17,7 @@ public class AuthController {
 
     private final UserService userService;
 
-    @PostMapping("/user")
+    @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody UserRequest userRequest) {
         User userSaved = userService.save(UserMapper.toUser(userRequest));
         return new ResponseEntity<>(UserMapper.toUserResponse(userSaved), HttpStatus.CREATED);
