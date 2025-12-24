@@ -21,6 +21,5 @@ public class AuthController {
     public ResponseEntity<UserResponse> register(@RequestBody UserRequest userRequest) {
         User userSaved = userService.save(UserMapper.toUser(userRequest));
         return new ResponseEntity<>(UserMapper.toUserResponse(userSaved), HttpStatus.CREATED);
-
     }
 }
