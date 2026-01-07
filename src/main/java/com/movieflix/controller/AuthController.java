@@ -22,4 +22,9 @@ public class AuthController {
         User userSaved = userService.save(UserMapper.toUser(userRequest));
         return new ResponseEntity<>(UserMapper.toUserResponse(userSaved), HttpStatus.CREATED);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserRequest userRequest) {
+        return null;
+    }
 }
